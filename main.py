@@ -20,6 +20,7 @@ def text_to_speech():
 @app.route('/<texttospeech>')
 def runtime_text_to_speech(texttospeech):
     mp3file = './/'+texttospeech+'.mp3'
+    #gTTS seems to be slow, need to find something faster
     gTTS(texttospeech).save(mp3file)
     mixer.init()
     mixer.music.load(mp3file)

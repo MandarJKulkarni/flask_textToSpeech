@@ -1,3 +1,4 @@
+import flask
 from flask import Flask
 from gtts import gTTS
 from pygame import mixer
@@ -21,10 +22,12 @@ def text_to_speech():
 def runtime_text_to_speech(texttospeech):
     mp3file = './/'+texttospeech+'.mp3'
     #gTTS seems to be slow, need to find something faster
-    gTTS(texttospeech).save(mp3file)
-    mixer.init()
-    mixer.music.load(mp3file)
-    mixer.music.play()
+    play_header: bool = flask.request.headers.get('play')
+    if play_header:
+        gTTS(texttospeech).save(mp3file)
+        mixer.init()
+        mixer.music.load(mp3file)
+        mixer.music.play()
     return texttospeech
 
 

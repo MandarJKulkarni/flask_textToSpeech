@@ -6,6 +6,7 @@ from pygame import mixer
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def info():
     html = "<h3>Hello World!</h3>"
@@ -21,14 +22,19 @@ def text_to_speech():
 
 @app.route('/<texttospeech>')
 def runtime_text_to_speech(texttospeech):
-    mp3file = './/'+texttospeech+'.mp3'
-    #gTTS seems to be slow, need to find something faster
-    play_header: bool = flask.request.headers.get('play')
-    if play_header:
-        gTTS(texttospeech).save(mp3file)
-        mixer.init()
-        mixer.music.load(mp3file)
-        mixer.music.play()
+    return texttospeech
+
+
+@app.route('/play/<texttospeech>')
+def play_audio(texttospeech):
+    # gTTS seems to be slow, need to find something faster
+    # play_header: bool = flask.request.headers.get('play')
+    #if play_header:
+    mp3file = './/' + texttospeech + '.mp3'
+    gTTS(texttospeech).save(mp3file)
+    mixer.init()
+    mixer.music.load(mp3file)
+    mixer.music.play()
     return texttospeech
 
 

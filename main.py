@@ -2,8 +2,9 @@ import flask
 from flask import Flask
 from gtts import gTTS
 from pygame import mixer
-app = Flask(__name__)
 
+
+app = Flask(__name__)
 
 @app.route('/')
 def info():

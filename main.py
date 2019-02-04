@@ -22,7 +22,7 @@ def text_to_speech():
 @app.route('/<texttospeech>')
 def runtime_text_to_speech(texttospeech):
     mp3file = './/'+texttospeech+'.mp3'
-    #gTTS seems to be slow, need to find something faster
+    # gTTS seems to be slow, need to find something faster
     play_header: bool = flask.request.headers.get('play')
     if play_header:
         gTTS(texttospeech).save(mp3file)

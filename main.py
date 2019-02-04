@@ -6,6 +6,7 @@ from pygame import mixer
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def info():
     html = "<h3>Hello World!</h3>"

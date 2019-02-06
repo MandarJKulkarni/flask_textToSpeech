@@ -28,6 +28,7 @@ def runtime_text_to_speech(texttospeech):
 @app.route('/play/<texttospeech>')
 def play_audio(texttospeech):
     # gTTS seems to be slow, need to find something faster
+    # or need to use multithreading...
     # play_header: bool = flask.request.headers.get('play')
     #if play_header:
     mp3file = './/' + texttospeech + '.mp3'

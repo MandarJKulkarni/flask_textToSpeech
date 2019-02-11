@@ -30,7 +30,7 @@ def play_audio(texttospeech):
     # gTTS seems to be slow, need to find something faster
     # or need to use multithreading...
     # play_header: bool = flask.request.headers.get('play')
-    #if play_header:
+    # if play_header:
     mp3file = './/' + texttospeech + '.mp3'
     gTTS(texttospeech).save(mp3file)
     mixer.init()

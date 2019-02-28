@@ -39,13 +39,15 @@ def play_audio(texttospeech):
     mixer.music.play()
     return texttospeech
 
-@app.route('/gettext/<webpageurl>')
-def get_text(webpageurl):
-    html = requests.get(webpageurl)
+
+@app.route('/gettext')
+def get_text():
+    html = requests.get("https://www.google.com")
     text = html2text.html2text(html.text)
     textfile = open("htmltext.txt", 'w')
     textfile.write(text)
-
+    textfile.close()
+    return html
 
 if __name__ == '__main__':
     app.run()

@@ -1,8 +1,9 @@
-import flask
+# import flask
 from flask import Flask
 from gtts import gTTS
 from pygame import mixer
-
+import html2text
+import requests
 
 app = Flask(__name__)
 
@@ -36,6 +37,13 @@ def play_audio(texttospeech):
     mixer.music.load(mp3file)
     mixer.music.play()
     return texttospeech
+
+@app.route('/gettext/<webpageurl>')
+def get_text(webpageurl):
+    html = requests.get(webpageurl)
+    text = html2text.html2text(html.text)
+    textfile = open("htmltext.txt", 'w')
+    textfile.write(text)
 
 
 if __name__ == '__main__':

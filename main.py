@@ -49,5 +49,6 @@ def get_text():
     textfile.close()
     return html
 
+
 if __name__ == '__main__':
     app.run()

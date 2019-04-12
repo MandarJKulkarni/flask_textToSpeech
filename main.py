@@ -4,7 +4,7 @@ from gtts import gTTS
 from pygame import mixer
 import html2text
 import requests
-
+import timeit
 app = Flask(__name__)
 
 
@@ -16,9 +16,10 @@ def info():
 
 @app.route('/textToSpeech')
 def text_to_speech():
-
+    start = timeit.timeit()
     gTTS("will return a speech from given text").save(".//tts.mp3")
-    return "saved an mp3, please check"
+    end = timeit.timeit()
+    return "saved an mp3 in {} seconds, please check".format(end-start)
 
 
 @app.route('/<texttospeech>')
@@ -48,6 +49,7 @@ def get_text():
     textfile.write(text)
     textfile.close()
     return html
+
 
 if __name__ == '__main__':
     app.run()

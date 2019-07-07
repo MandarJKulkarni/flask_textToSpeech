@@ -1,4 +1,5 @@
 # import flask
+import os
 from flask import Flask
 from gtts import gTTS
 from pygame import mixer
@@ -10,7 +11,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def info():
-    html = "<h3>Hello World!</h3>"
+    html = "<h3>Text to speech service</h3>"
     return html
 
 
@@ -34,10 +35,11 @@ def play_audio(texttospeech):
     # play_header: bool = flask.request.headers.get('play')
     # if play_header:
     mp3file = './/' + texttospeech + '.mp3'
-    start = timeit.timeit()
-    gTTS(texttospeech).save(mp3file)
-    end = timeit.timeit()
-    print("time taken by gtts {}".format(end-start))
+    if not os.path.exists(mp3file):
+        start = timeit.timeit()
+        gTTS(texttospeech).save(mp3file)
+        end = timeit.timeit()
+        print("time taken by gtts {}".format(end-start))
     start = timeit.timeit()
     mixer.init()
     mixer.music.load(mp3file)

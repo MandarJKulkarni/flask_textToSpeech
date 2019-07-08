@@ -1,11 +1,13 @@
 # import flask
 import os
 from flask import Flask
+from flask import request
 from gtts import gTTS
 from pygame import mixer
 import html2text
 import requests
 import timeit
+import json
 app = Flask(__name__)
 
 
@@ -47,6 +49,19 @@ def play_audio(texttospeech):
     end = timeit.timeit()
     print("time taken by mixer {}".format(end - start))
     return texttospeech
+
+
+@app.route('/playmp3', methods=['POST'])
+def play_mp3():
+    input_text = json.loads(request.data)["text"]
+    mp3file = './/text.mp3'
+    if os.path.exists(mp3file):
+        os.remove(mp3file)
+    gTTS(input_text).save(mp3file)
+    mixer.init()
+    mixer.music.load(mp3file)
+    mixer.music.play()
+    return input_text
 
 
 @app.route('/gettext')

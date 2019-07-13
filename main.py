@@ -8,6 +8,8 @@ import html2text
 import requests
 import timeit
 import json
+from bs4 import BeautifulSoup
+
 app = Flask(__name__)
 
 
@@ -62,6 +64,41 @@ def play_mp3():
     mixer.music.load(mp3file)
     mixer.music.play()
     return input_text
+
+
+def get_text_from_url(url):
+
+    resp = requests.get(url)
+
+    if resp.status_code == 200:
+        print("Successfully opened the web page")
+        print("The news are as follow :-\n")
+
+        soup = BeautifulSoup(resp.text, 'html.parser')
+
+        l = soup.find("div", {"class": "rightsec"})
+
+        url_text = ""
+        for i in l.findAll("p"):
+            print(i.text)
+            url_text += i.text
+        return url_text
+    else:
+        print("Error")
+
+
+@app.route('/mp3fromurl', methods=['POST'])
+def mp3_from_url():
+    input_url = json.loads(request.data)["url"]
+    url_text = get_text_from_url(input_url)
+    mp3file = './/text.mp3'
+    if os.path.exists(mp3file):
+        os.remove(mp3file)
+    gTTS(url_text).save(mp3file)
+    mixer.init()
+    mixer.music.load(mp3file)
+    mixer.music.play()
+    return input_url
 
 
 @app.route('/gettext')

@@ -10,7 +10,7 @@ e.g. if you are running the server on localhost:5000 then
 
      localhost:5000/play/there will make the browser say "there"
         
-More interesting work is in progress!!
+More interesting work (/mp3fromurl) is in progress!!
 
 Use /playmp3 post request to convert the input text into audio and play the same.
 

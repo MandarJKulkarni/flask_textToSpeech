@@ -67,7 +67,6 @@ def play_mp3():
 
 
 def get_text_from_url(url):
-
     resp = requests.get(url)
 
     if resp.status_code == 200:

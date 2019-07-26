@@ -77,9 +77,10 @@ def get_text_from_url(url):
         l = soup.find("div", {"class": "rightsec"})
 
         url_text = ""
-        for i in l.findAll("p"):
-            print(i.text)
-            url_text += i.text
+        if l:
+            for i in l.findAll("p"):
+                print(i.text)
+                url_text += i.text
         return url_text
     else:
         print("Error")

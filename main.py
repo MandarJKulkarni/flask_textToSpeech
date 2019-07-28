@@ -75,11 +75,12 @@ def get_text_from_url(url):
         soup = BeautifulSoup(resp.text, 'html.parser')
 
         l = soup.find("div", {"class": "rightsec"})
+        # l = soup.find("div", {"itemprop": "articleBody"})
 
         url_text = ""
         if l:
             for i in l.findAll("p"):
-                print(i.text)
+                # yield i.text
                 url_text += i.text
         return url_text
     else:
@@ -90,14 +91,16 @@ def get_text_from_url(url):
 def mp3_from_url():
     input_url = json.loads(request.data)["url"]
     url_text = get_text_from_url(input_url)
-    mp3file = './/text.mp3'
-    if os.path.exists(mp3file):
-        os.remove(mp3file)
-    gTTS(url_text).save(mp3file)
-    mixer.init()
-    mixer.music.load(mp3file)
-    mixer.music.play()
-    return input_url
+    if url_text:
+        mp3file = './/text.mp3'
+        if os.path.exists(mp3file):
+            os.remove(mp3file)
+        gTTS(url_text).save(mp3file)
+        mixer.init()
+        mixer.music.load(mp3file)
+        mixer.music.play()
+        return input_url
+    return "Unable to read the text"
 
 
 @app.route('/gettext')

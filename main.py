@@ -72,14 +72,14 @@ def get_text_from_url(url):
         print("Successfully opened the web page")
         print("The news are as follow :-\n")
 
-        soup = BeautifulSoup(resp.text, 'html.parser')
+        soup = BeautifulSoup(resp.content, 'html.parser')
 
-        l = soup.find("div", {"class": "rightsec"})
-        # l = soup.find("div", {"itemprop": "articleBody"})
+        # l = soup.find("div", {"class": "rightsec"})
+        cls = soup.find("div", {"class": "o-story-content"})
 
         url_text = ""
-        if l:
-            for i in l.findAll("p"):
+        if cls:
+            for i in cls.findAll("p"):
                 # yield i.text
                 url_text += i.text
         return url_text
@@ -100,7 +100,7 @@ def mp3_from_url():
         mixer.music.load(mp3file)
         mixer.music.play()
         return input_url
-    return "Unable to read the text"
+    return "Unable to extract the data from the page"
 
 
 @app.route('/gettext')

@@ -91,6 +91,7 @@ def get_text_from_url(url):
 def mp3_from_url():
     input_url = json.loads(request.data)["url"]
     url_text = get_text_from_url(input_url)
+    
     if url_text:
         mp3file = './/text.mp3'
         if os.path.exists(mp3file):
@@ -115,4 +116,3 @@ def get_text():
 
 if __name__ == '__main__':
     app.run()
-

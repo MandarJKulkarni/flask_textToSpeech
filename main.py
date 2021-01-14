@@ -37,19 +37,24 @@ def play_audio(texttospeech):
     # or need to use multithreading...
     # play_header: bool = flask.request.headers.get('play')
     # if play_header:
-    mp3file = './/' + texttospeech + '.mp3'
-    if not os.path.exists(mp3file):
+    try:
+        mp3file = './/' + texttospeech + '.mp3'
+        if not os.path.exists(mp3file):
+            start = timeit.timeit()
+            gTTS(texttospeech).save(mp3file)
+            end = timeit.timeit()
+            print("time taken by gtts {}".format(end-start))
         start = timeit.timeit()
-        gTTS(texttospeech).save(mp3file)
+        mixer.init()
+        mixer.music.load(mp3file)
+        mixer.music.play()
         end = timeit.timeit()
-        print("time taken by gtts {}".format(end-start))
-    start = timeit.timeit()
-    mixer.init()
-    mixer.music.load(mp3file)
-    mixer.music.play()
-    end = timeit.timeit()
-    print("time taken by mixer {}".format(end - start))
-    return texttospeech
+        print("time taken by mixer {}".format(end - start))
+    except Exception as ex:
+        print(ex.__traceback__)
+        print(ex.__str__())
+    finally:
+        return texttospeech
 
 
 @app.route('/playmp3', methods=['POST'])

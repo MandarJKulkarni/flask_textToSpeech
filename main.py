@@ -50,8 +50,8 @@ def play_audio(texttospeech):
         mixer.music.play()
         end = timeit.timeit()
         print("time taken by mixer {}".format(end - start))
+        os.remove(mp3file)
     except Exception as ex:
-        print(ex.__traceback__)
         print(ex.__str__())
     finally:
         return texttospeech

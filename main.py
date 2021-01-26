@@ -77,7 +77,7 @@ def get_text_from_url(url):
         print("Successfully opened the web page")
         print("The news are as follow :-\n")
         
-        //todo: use newspaper instead of BeautifulSoup
+        #todo: use newspaper instead of BeautifulSoup
         soup = BeautifulSoup(resp.content, 'html.parser')
 
         # l = soup.find("div", {"class": "rightsec"})

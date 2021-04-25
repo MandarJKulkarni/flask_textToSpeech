@@ -7,7 +7,7 @@ import html2text
 import requests
 import timeit
 import json
-from bs4 import BeautifulSoup
+from newspaper import Article
 
 app = Flask(__name__)
 
@@ -71,26 +71,13 @@ def play_mp3():
 
 
 def get_text_from_url(url):
-    resp = requests.get(url)
-
-    if resp.status_code == 200:
-        print("Successfully opened the web page")
-        print("The news are as follow :-\n")
-        
-        #todo: use newspaper instead of BeautifulSoup
-        soup = BeautifulSoup(resp.content, 'html.parser')
-
-        # l = soup.find("div", {"class": "rightsec"})
-        cls = soup.find("div", {"class": "o-story-content"})
-
-        url_text = ""
-        if cls:
-            for i in cls.findAll("p"):
-                # yield i.text
-                url_text += i.text
-        return url_text
-    else:
-        print("Error")
+    try:
+        article = Article(url)
+        article.download()
+        article.parse()
+        return article.text
+    except Exception as ex:
+        return ex.__str__()
 
 
 @app.route('/mp3fromurl', methods=['POST'])

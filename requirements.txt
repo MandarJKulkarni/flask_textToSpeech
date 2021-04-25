@@ -1,6 +1,2 @@
-flask
-bs4
-requests
-pygame
-gtts
-html2text
+kafka-python
+google-cloud-logging

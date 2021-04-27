@@ -1,2 +1,6 @@
-kafka-python
-google-cloud-logging
+flask
+newspaper3k
+requests
+pygame
+gtts
+html2text

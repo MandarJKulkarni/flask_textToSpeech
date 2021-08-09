@@ -97,15 +97,5 @@ def mp3_from_url():
     return "Unable to extract the data from the page"
 
 
-@app.route('/gettext')
-def get_text():
-    html = requests.get("https://www.google.com")
-    text = html2text.html2text(html.text)
-    textfile = open("htmltext.txt", 'w')
-    textfile.write(text)
-    textfile.close()
-    return html
-
-
 if __name__ == '__main__':
     app.run()

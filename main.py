@@ -3,8 +3,6 @@ from flask import Flask
 from flask import request
 from gtts import gTTS
 from pygame import mixer
-import html2text
-import requests
 import timeit
 import json
 from newspaper import Article
